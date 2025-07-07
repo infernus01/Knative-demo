@@ -4,6 +4,11 @@ metadata:
   name: namespacecleaners.clusterops.io
 spec:
   group: clusterops.io
+  names:
+    kind: NamespaceCleaner
+    plural: namespacecleaners
+    singular: namespacecleaner
+  scope: Namespaced
   versions:
     - name: v1alpha1
       served: true
@@ -15,67 +20,5 @@ spec:
             spec:
               type: object
               properties:
-                schedule:
-                  type: string
-                  description: "Schedule defines when to run the cleanup (cron format)"
-                  example: "0 2 * * *"
-                maxAge:
-                  type: string
-                  description: "MaxAge defines how old namespaces should be before cleanup (e.g., '7d', '24h', '30m')"
-                  example: "7d"
-                selector:
-                  type: object
-                  description: "Selector defines which namespaces to clean up"
-                  properties:
-                    matchLabels:
-                      type: object
-                      additionalProperties:
-                        type: string
-                    matchExpressions:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          key:
-                            type: string
-                          operator:
-                            type: string
-                          values:
-                            type: array
-                            items:
-                              type: string
-            status:
-              type: object
-              properties:
-                lastCleanup:
-                  type: string
-                  format: date-time
-                  description: "LastCleanup is the timestamp of the last cleanup"
-                nextCleanup:
-                  type: string
-                  format: date-time
-                  description: "NextCleanup is the timestamp of the next scheduled cleanup"
-                conditions:
-                  type: array
-                  description: "Conditions represent the current service state"
-                  items:
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                      status:
-                        type: string
-                      lastTransitionTime:
-                        type: string
-                        format: date-time
-                      reason:
-                        type: string
-                      message:
-                        type: string
-  scope: Namespaced
-  names:
-    plural: namespacecleaners
-    singular: namespacecleaner
-    kind: NamespaceCleaner
-    shortNames:
-      - nsc
+                retentionDays:
+                  type: integer

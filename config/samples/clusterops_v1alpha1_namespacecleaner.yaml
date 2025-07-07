@@ -1,16 +1,7 @@
 apiVersion: clusterops.io/v1alpha1
 kind: NamespaceCleaner
 metadata:
-  name: example-namespacecleaner
+  name: dev-namespacecleaner
   namespace: default
 spec:
-  # Run cleanup every day at 2 AM
-  schedule: "0 2 * * *"
-
-  # Clean up namespaces older than 7 days
-  maxAge: "7d"
-
-  # Clean up namespaces with the label environment=test
-  selector:
-    matchLabels:
-      environment: "test"
+  retentionDays: 9000
