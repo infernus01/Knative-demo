@@ -1,0 +1,30 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: namespacecleaners.clusterops.io
+spec:
+  group: clusterops.io
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                schedule:
+                  type: string
+                  description: "When to run cleanup (cron format)"
+                selector:
+                  type: object
+                  description: "Which namespaces to clean up"
+            status:
+              type: object
+  scope: Namespaced
+  names:
+    plural: namespacecleaners
+    singular: namespacecleaner
+    kind: NamespaceCleaner

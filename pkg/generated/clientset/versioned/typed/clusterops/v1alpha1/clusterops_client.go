@@ -30,7 +30,7 @@ type ClusteropsV1alpha1Interface interface {
 	NamespaceCleanersGetter
 }
 
-// ClusteropsV1alpha1Client is used to interact with features provided by the clusterops group.
+// ClusteropsV1alpha1Client is used to interact with features provided by the clusterops.io group.
 type ClusteropsV1alpha1Client struct {
 	restClient rest.Interface
 }
