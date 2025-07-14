@@ -21,10 +21,13 @@ spec:
                 selector:
                   type: object
                   description: "Which namespaces to clean up"
+                  x-kubernetes-preserve-unknown-fields: true
             status:
               type: object
-  scope: Namespaced
+  scope: Cluster
   names:
     plural: namespacecleaners
     singular: namespacecleaner
     kind: NamespaceCleaner
+    shortNames:
+      - nc
