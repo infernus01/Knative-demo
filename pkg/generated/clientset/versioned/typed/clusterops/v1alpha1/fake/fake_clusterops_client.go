@@ -27,8 +27,8 @@ type FakeClusteropsV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeClusteropsV1alpha1) NamespaceCleaners(namespace string) v1alpha1.NamespaceCleanerInterface {
-	return newFakeNamespaceCleaners(c, namespace)
+func (c *FakeClusteropsV1alpha1) NamespaceCleaners() v1alpha1.NamespaceCleanerInterface {
+	return newFakeNamespaceCleaners(c)
 }
 
 // RESTClient returns a RESTClient that is used to communicate

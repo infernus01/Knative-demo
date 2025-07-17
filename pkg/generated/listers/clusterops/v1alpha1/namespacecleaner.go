@@ -30,8 +30,9 @@ type NamespaceCleanerLister interface {
 	// List lists all NamespaceCleaners in the indexer.
 	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*clusteropsv1alpha1.NamespaceCleaner, err error)
-	// NamespaceCleaners returns an object that can list and get NamespaceCleaners.
-	NamespaceCleaners(namespace string) NamespaceCleanerNamespaceLister
+	// Get retrieves the NamespaceCleaner from the index for a given name.
+	// Objects returned here must be treated as read-only.
+	Get(name string) (*clusteropsv1alpha1.NamespaceCleaner, error)
 	NamespaceCleanerListerExpansion
 }
 
@@ -43,27 +44,4 @@ type namespaceCleanerLister struct {
 // NewNamespaceCleanerLister returns a new NamespaceCleanerLister.
 func NewNamespaceCleanerLister(indexer cache.Indexer) NamespaceCleanerLister {
 	return &namespaceCleanerLister{listers.New[*clusteropsv1alpha1.NamespaceCleaner](indexer, clusteropsv1alpha1.Resource("namespacecleaner"))}
-}
-
-// NamespaceCleaners returns an object that can list and get NamespaceCleaners.
-func (s *namespaceCleanerLister) NamespaceCleaners(namespace string) NamespaceCleanerNamespaceLister {
-	return namespaceCleanerNamespaceLister{listers.NewNamespaced[*clusteropsv1alpha1.NamespaceCleaner](s.ResourceIndexer, namespace)}
-}
-
-// NamespaceCleanerNamespaceLister helps list and get NamespaceCleaners.
-// All objects returned here must be treated as read-only.
-type NamespaceCleanerNamespaceLister interface {
-	// List lists all NamespaceCleaners in the indexer for a given namespace.
-	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*clusteropsv1alpha1.NamespaceCleaner, err error)
-	// Get retrieves the NamespaceCleaner from the indexer for a given namespace and name.
-	// Objects returned here must be treated as read-only.
-	Get(name string) (*clusteropsv1alpha1.NamespaceCleaner, error)
-	NamespaceCleanerNamespaceListerExpansion
-}
-
-// namespaceCleanerNamespaceLister implements the NamespaceCleanerNamespaceLister
-// interface.
-type namespaceCleanerNamespaceLister struct {
-	listers.ResourceIndexer[*clusteropsv1alpha1.NamespaceCleaner]
 }

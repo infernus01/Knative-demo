@@ -29,11 +29,11 @@ type fakeNamespaceCleaners struct {
 	Fake *FakeClusteropsV1alpha1
 }
 
-func newFakeNamespaceCleaners(fake *FakeClusteropsV1alpha1, namespace string) clusteropsv1alpha1.NamespaceCleanerInterface {
+func newFakeNamespaceCleaners(fake *FakeClusteropsV1alpha1) clusteropsv1alpha1.NamespaceCleanerInterface {
 	return &fakeNamespaceCleaners{
 		gentype.NewFakeClientWithList[*v1alpha1.NamespaceCleaner, *v1alpha1.NamespaceCleanerList](
 			fake.Fake,
-			namespace,
+			"",
 			v1alpha1.SchemeGroupVersion.WithResource("namespacecleaners"),
 			v1alpha1.SchemeGroupVersion.WithKind("NamespaceCleaner"),
 			func() *v1alpha1.NamespaceCleaner { return &v1alpha1.NamespaceCleaner{} },

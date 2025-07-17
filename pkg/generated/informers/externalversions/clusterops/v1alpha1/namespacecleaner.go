@@ -41,33 +41,32 @@ type NamespaceCleanerInformer interface {
 type namespaceCleanerInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
-	namespace        string
 }
 
 // NewNamespaceCleanerInformer constructs a new informer for NamespaceCleaner type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewNamespaceCleanerInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredNamespaceCleanerInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewNamespaceCleanerInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredNamespaceCleanerInformer(client, resyncPeriod, indexers, nil)
 }
 
 // NewFilteredNamespaceCleanerInformer constructs a new informer for NamespaceCleaner type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredNamespaceCleanerInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredNamespaceCleanerInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ClusteropsV1alpha1().NamespaceCleaners(namespace).List(context.TODO(), options)
+				return client.ClusteropsV1alpha1().NamespaceCleaners().List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ClusteropsV1alpha1().NamespaceCleaners(namespace).Watch(context.TODO(), options)
+				return client.ClusteropsV1alpha1().NamespaceCleaners().Watch(context.TODO(), options)
 			},
 		},
 		&apisclusteropsv1alpha1.NamespaceCleaner{},
@@ -77,7 +76,7 @@ func NewFilteredNamespaceCleanerInformer(client versioned.Interface, namespace s
 }
 
 func (f *namespaceCleanerInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredNamespaceCleanerInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+	return NewFilteredNamespaceCleanerInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
 func (f *namespaceCleanerInformer) Informer() cache.SharedIndexInformer {

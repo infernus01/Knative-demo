@@ -20,7 +20,3 @@ package v1alpha1
 // NamespaceCleanerListerExpansion allows custom methods to be added to
 // NamespaceCleanerLister.
 type NamespaceCleanerListerExpansion interface{}
-
-// NamespaceCleanerNamespaceListerExpansion allows custom methods to be added to
-// NamespaceCleanerNamespaceLister.
-type NamespaceCleanerNamespaceListerExpansion interface{}

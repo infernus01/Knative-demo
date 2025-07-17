@@ -31,7 +31,7 @@ import (
 // NamespaceCleanersGetter has a method to return a NamespaceCleanerInterface.
 // A group's client should implement this interface.
 type NamespaceCleanersGetter interface {
-	NamespaceCleaners(namespace string) NamespaceCleanerInterface
+	NamespaceCleaners() NamespaceCleanerInterface
 }
 
 // NamespaceCleanerInterface has methods to work with NamespaceCleaner resources.
@@ -53,13 +53,13 @@ type namespaceCleaners struct {
 }
 
 // newNamespaceCleaners returns a NamespaceCleaners
-func newNamespaceCleaners(c *ClusteropsV1alpha1Client, namespace string) *namespaceCleaners {
+func newNamespaceCleaners(c *ClusteropsV1alpha1Client) *namespaceCleaners {
 	return &namespaceCleaners{
 		gentype.NewClientWithList[*clusteropsv1alpha1.NamespaceCleaner, *clusteropsv1alpha1.NamespaceCleanerList](
 			"namespacecleaners",
 			c.RESTClient(),
 			scheme.ParameterCodec,
-			namespace,
+			"",
 			func() *clusteropsv1alpha1.NamespaceCleaner { return &clusteropsv1alpha1.NamespaceCleaner{} },
 			func() *clusteropsv1alpha1.NamespaceCleanerList { return &clusteropsv1alpha1.NamespaceCleanerList{} },
 		),

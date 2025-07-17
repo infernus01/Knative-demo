@@ -35,8 +35,8 @@ type ClusteropsV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *ClusteropsV1alpha1Client) NamespaceCleaners(namespace string) NamespaceCleanerInterface {
-	return newNamespaceCleaners(c, namespace)
+func (c *ClusteropsV1alpha1Client) NamespaceCleaners() NamespaceCleanerInterface {
+	return newNamespaceCleaners(c)
 }
 
 // NewForConfig creates a new ClusteropsV1alpha1Client for the given config.

@@ -40,5 +40,5 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 
 // NamespaceCleaners returns a NamespaceCleanerInformer.
 func (v *version) NamespaceCleaners() NamespaceCleanerInformer {
-	return &namespaceCleanerInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &namespaceCleanerInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
