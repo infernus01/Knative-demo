@@ -62,15 +62,9 @@ kubectl apply -f example-namespacecleaner.yaml
 kubectl get namespacecleaners
 ```
 
-## What it does
-
-- **schedule**: When to run cleanup (cron format)
-- **selector**: Which namespaces to clean up (by labels)
-
 ## Files
 
 - `pkg/apis/clusterops/v1alpha1/types.go` - Go type definitions
 - `pkg/apis/clusterops/v1alpha1/register.go` - API registration
 - `config/crd/namespacecleaners.yaml` - CRD definition
-- `example-namespacecleaner.yaml` - Example resource
 - `hack/update-codegen.sh` - Code generation script
